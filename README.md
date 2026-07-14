@@ -10,7 +10,7 @@ AI coding agents usually locate files by walking directories. That works inside 
 
 This skill deliberately uses the official `es.exe` client directly. It adds no Node or Python wrapper, bundles no third-party executable, and keeps ordinary read-only search separate from Everything GUI commands that can change application or filesystem state.
 
-The skill was developed with guidance from [mattpocock/skills](https://github.com/mattpocock/skills), particularly its research, implementation, and skill-writing workflows.
+The skill was developed with guidance from [mattpocock/skills](https://github.com/mattpocock/skills). Its [research skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/research/SKILL.md) guided how we gathered and verified the Everything search syntax, ES CLI, SDK3, and UI-command information against official voidtools documentation.
 
 ## What it covers
 
