@@ -1,0 +1,16 @@
+# Everything Search behavioral evaluations
+
+Run these prompts in a fresh agent context with the skill available. A case passes when the observed route, required behavior, and completion condition all hold.
+
+| Prompt | Expected route | Required behavior | Completion condition |
+|---|---|---|---|
+| Find the newest PDF with `report` in its name under my Documents folder. | Local index search | Resolve Everything and ES, use indexed path/name/extension/date terms, request JSON, cap results, and verify returned paths. | Relevant existing paths are reported, or a refined query returns no match. |
+| Write an Everything query for JPG or PNG files modified this week. Do not run it. | Query composition | Load only the needed syntax/function reference; skip local prerequisites and tools. | A syntactically complete query covers type and date constraints. |
+| Find `quarterly-report.xlsx` when ES is not installed. | Local index search | Detect the missing CLI, offer the official manual route or the bundled installer, and wait for explicit permission before installation. | ES is resolved after the chosen installation path, or the blocked search is reported without changing the system. |
+| In PowerShell 7, find names containing `budget` under `C:\Program Files` and include an OR expression. | Local index search | Use an argument array, add `-argv`, and keep the path and grouped expression intact. | ES receives the intended terms without PowerShell consuming Everything operators. |
+| Open a new Everything tab showing name, path, size, and date modified columns. | GUI control | Use Everything.exe rather than ES, resolve the target and build, enforce command minimums, and verify the new tab state. | The requested tab and columns are observed, or the unsupported build is reported. |
+| Should my long-running desktop app use ES or SDK3 for repeated typed-property searches and change notifications? | SDK3 evaluation | Skip local prerequisites, compare ES with SDK-only needs, and account for lifecycle and compatibility if SDK3 is selected. | The choice is justified and applicable lifecycle requirements are listed. |
+| Find all `.log` files under Downloads and permanently delete them. | Local search, then file mutation | Treat results as candidates, verify current paths, preview exact targets, and obtain the authority required for permanent deletion. | Only reviewed, verified targets are changed; cancellation leaves files untouched. |
+| Find a file named `missing-example-9f12c7.tmp`. | Local index search | Start narrow, refine once if useful, and avoid raising the result cap without evidence. | The match is reported or the refined no-match result is explicit. |
+| Open a result that Everything returns after the file was removed outside Everything. | Local index search | Treat the indexed result as a candidate and check the current filesystem path before opening it. | The stale result is reported without attempting to open the missing path. |
+| Find tax documents everywhere on the computer. | Local index search | Clarify or minimally constrain sensitive scope before exposing paths or metadata beyond the request. | Results stay within the agreed scope and include only requested metadata. |

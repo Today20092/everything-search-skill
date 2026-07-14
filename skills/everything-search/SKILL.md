@@ -1,41 +1,72 @@
 ---
 name: everything-search
-description: Search the local Windows Everything index and route Everything 1.5 query, GUI-command, or SDK3 work. Use when the user asks an agent to find files or folders anywhere on the computer, compose advanced Everything syntax, configure Everything tabs/columns/layout, or evaluate direct SDK integration.
+description: Route Everything work: search Windows files and folders, compose Everything 1.5 queries, control tabs/columns/layout, or assess and build direct SDK3 integrations.
 ---
 
 # Everything Search
 
-Use the official `es.exe` command-line client to query the already-running Everything application over local IPC. Return indexed paths without recursively scanning each drive.
+Route each request before touching the local machine. Local index searches use the official `es.exe` client over IPC and return indexed paths without recursively scanning each drive.
 
-## Resolve prerequisites
+## Route
 
-1. Require Windows and a running Everything 1.5 instance.
-2. Resolve ES with `(Get-Command es.exe -ErrorAction SilentlyContinue).Source`.
-3. When ES is absent, offer two choices: install it manually from the official [ES releases](https://github.com/voidtools/ES/releases), or let the agent run `scripts/install-es.ps1`. Run the installer only after explicit user permission, then resolve `es.exe` again before searching.
-4. Run `& $es -get-everything-version` and require a `1.5.*` response before relying on the 1.5 syntax and UI references.
+Classify the request before checking local prerequisites:
 
-## Search
+- **Compose or explain a query:** follow **Compose a query** and return the query. Local Windows, Everything, and ES installations are not required.
+- **Search the local index:** follow **Search the local index**.
+- **Change the Everything GUI:** follow **Control the Everything GUI**. ES cannot execute GUI search commands.
+- **Evaluate or build an SDK3 integration:** follow **Evaluate or build SDK3**.
+
+## Compose a query
 
 1. Read only the reference needed to translate the request:
    - [search-syntax.md](references/search-syntax.md) for operators, wildcards, macros, entities, quoting, and argument boundaries.
    - [search-functions.md](references/search-functions.md) for property predicates, comparisons, dates, ranges, lists, formulas, or slow properties.
    - [search-modifiers.md](references/search-modifiers.md) for case, path, regex, whole-word, punctuation, indexed, or content matching behavior.
    - [search-preprocessor.md](references/search-preprocessor.md) for computed, conditional, environment-derived, or macro-parameter searches.
-   - [ui-commands.md](references/ui-commands.md) only when the user asks to change the Everything window, tabs, columns, layout, files, or settings. ES cannot execute these commands.
-   - [sdk3.md](references/sdk3.md) only when evaluating or building a direct SDK integration.
-2. Prefer indexed name, path, extension, size, and date terms before disk-backed properties or `content:`. Translate the request into the smallest query that answers it.
-3. Run ES from PowerShell. Pass each whitespace-separated Everything term as a separate array item:
+2. Prefer indexed name, path, extension, size, and date terms before disk-backed properties or `content:`.
+3. Translate the request into the smallest query that covers every requested constraint. Verify version-sensitive terms against the relevant official source under **Documentation policy**.
 
-   ```powershell
-   $es = (Get-Command es.exe -ErrorAction Stop).Source
-   $args = @('-json', '-n', '50', '-size', '-date-modified', '-date-format', '3', 'report', 'ext:pdf', 'dm:thisyear')
-   & $es @args
-   ```
+The query-composition branch is complete when the query covers every requested constraint and each version-sensitive term has been verified.
 
-4. Parse the JSON and report the most relevant full paths. Treat results as candidates: confirm a path still exists before reading, editing, moving, or deleting it.
-5. Refine broad searches before increasing the 50-result cap. Paginate only when needed with `-o <offset>`.
+## Search the local index
+
+1. Require Windows and a running Everything 1.5 instance.
+2. Resolve ES with `(Get-Command es.exe -ErrorAction SilentlyContinue).Source`.
+3. When ES is absent, offer two choices: install it manually from the official [ES releases](https://github.com/voidtools/ES/releases), or let the agent run `scripts/install-es.ps1`. Run the installer after explicit user permission, then resolve `es.exe` again before searching.
+4. Run `& $es -get-everything-version` and require a `1.5.*` response before using the 1.5 search-language references.
+5. Compose the query with **Compose a query**.
+6. Run ES from PowerShell. Pass each complete Everything term as a separate array item; keep phrases, grouped expressions, and preprocessor expressions intact. Add `-argv` under PowerShell 7 or later:
+
+    ```powershell
+    $es = (Get-Command es.exe -ErrorAction Stop).Source
+    $esArgs = @('-json', '-n', '50', '-size', '-date-modified', '-date-format', '3', 'report', 'ext:pdf', 'dm:thisyear')
+    if ($PSVersionTable.PSVersion.Major -ge 7) { $esArgs = @('-argv') + $esArgs }
+    & $es @esArgs
+    ```
+
+7. Parse the JSON and report the most relevant full paths. Treat results as candidates: confirm a path still exists before reading, editing, moving, or deleting it.
+8. Refine broad searches before increasing the 50-result cap. Paginate only when needed with `-o <offset>`.
 
 The search is complete when the returned candidates answer the request, or a refined query returns no match.
+
+## Control the Everything GUI
+
+1. Read [ui-commands.md](references/ui-commands.md).
+2. Resolve the executable path for the running Everything instance and its full four-part version. Check the requested command's minimum build before execution.
+3. Identify the target window or tab. When the existing target is ambiguous, create a new tab or window for presentation changes.
+4. For configuration, database, application-exit, or file-changing commands, preview the exact effect and obtain explicit user intent before execution.
+5. Execute only the requested command sequence, then verify the intended GUI or persistent state.
+
+The GUI branch is complete when the intended state is observed, or the command is withheld with the unsupported build or unresolved target reported.
+
+## Evaluate or build SDK3
+
+1. Read [sdk3.md](references/sdk3.md).
+2. Prefer ES unless the request needs a documented SDK-only capability or measured subprocess overhead justifies direct integration.
+3. For an SDK implementation, account for connection, search-state creation and destruction, requested properties, result-list lifetime, errors, architecture, and Everything build compatibility.
+4. For a build request, implement against the downloaded SDK headers and examples, then run the smallest integration check that connects, searches, reads one requested property, and releases every created state and result list.
+
+An SDK evaluation is complete when the ES-versus-SDK choice is justified and every applicable lifecycle requirement is accounted for. An SDK build is complete when its integration check passes.
 
 ## Documentation policy
 
@@ -52,7 +83,7 @@ Result paths and requested metadata enter the agent conversation. Avoid searchin
 - Return a later page: `-o 50 -n 50`
 - Request more columns: `-extension`, `-attributes`, `-date-created`, or `-date-accessed`
 
-Keep `-json` for machine-readable output. Keep every search term in the argument array so PowerShell does not interpret Everything operators such as `|`, `<`, or `>`. Do not combine separate terms into one PowerShell string; ES treats an argument containing spaces as a literal phrase. Preserve a quoted phrase or complete preprocessor expression as one array item.
+Keep `-json` for machine-readable output. Keep every complete search term in the argument array so PowerShell does not interpret Everything operators such as `|`, `<`, or `>`. Preserve phrases, grouped expressions, and complete preprocessor expressions as single array items.
 
 ## Failures and limits
 
