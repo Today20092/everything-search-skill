@@ -42,13 +42,17 @@ The query-composition branch is complete when the query covers every requested c
     $es = (Get-Command es.exe -ErrorAction Stop).Source
     $esArgs = @('-json', '-n', '50', '-size', '-date-modified', '-date-format', '3', 'report', 'ext:pdf', 'dm:thisyear')
     if ($PSVersionTable.PSVersion.Major -ge 7) { $esArgs = @('-argv') + $esArgs }
-    & $es @esArgs
+    $esOutput = & $es @esArgs
+    $esExitCode = $LASTEXITCODE
+    if ($esExitCode -ne 0) { throw "ES failed with exit code $esExitCode." }
+    $results = ($esOutput -join [Environment]::NewLine) | ConvertFrom-Json
     ```
 
-7. Parse the JSON and report the most relevant full paths. Treat results as candidates: confirm a path still exists before reading, editing, moving, or deleting it.
-8. Refine broad searches before increasing the 50-result cap. For human-facing document or media searches, exclude irrelevant tooling directories such as `.git` or `node_modules` when they dominate the results. Paginate only when needed with `-viewport-offset <offset> -viewport-count <count>`; omit `-n` on paged requests.
+7. Capture `$LASTEXITCODE` immediately after ES returns. On any nonzero code, keep the output unparsed and read [troubleshooting.md](references/troubleshooting.md). Parse JSON only after code 0, then report the most relevant full paths. Treat results as candidates: confirm a path still exists before reading, editing, moving, or deleting it.
+8. When results are unexpectedly empty, stale, or duplicated, read [troubleshooting.md](references/troubleshooting.md) before declaring absence. Keep diagnosis read-only unless the user asks to change Everything's configuration.
+9. Refine broad searches before increasing the 50-result cap. For human-facing document or media searches, exclude irrelevant tooling directories such as `.git` or `node_modules` when they dominate the results. Paginate only when needed with `-viewport-offset <offset> -viewport-count <count>`; omit `-n` on paged requests.
 
-The search is complete when the returned candidates answer the request, or a refined query returns no match.
+The search is complete when the returned candidates answer the request, or a refined query and any applicable troubleshooting checks return no match.
 
 ## Manage bookmarks and filters
 
@@ -100,7 +104,5 @@ Keep `-json` for machine-readable output. Keep every complete search term in the
 
 ## Failures and limits
 
-- Exit code 8 means Everything IPC was not found. Confirm Everything 1.5 is running, then retry with `-ipc2`; use `-instance 1.5a` only for an older named alpha instance.
-- Exit code 7 means the IPC query failed. Retry once with `-ipc2`, then report the error.
 - Everything returns its index, so excluded or not-yet-indexed locations may be absent.
 - For file contents, first narrow by path/name/extension, then use a local text-search tool in the candidate directories. Use Everything `content:` only when the user explicitly wants it; content and unindexed metadata searches can touch disk and be slow.

@@ -31,7 +31,8 @@ Use this reference when a request depends on a file or folder property. It is a 
 | Size and timestamps | `size:`, `dm:`, `dc:`, `da:` | Indexed when the corresponding property is enabled. |
 | Filesystem and attributes | `attrib:`, `volume:`, `index-type:`, IDs/FRNs | Consult the catalog for exact property names and value formats. |
 | Content | `content:`, encoding/content-specific functions | Usually disk-backed unless content indexing is enabled. Narrow first. |
-| Duplicate detection | `find-dupes:`, property-specific `*-dupe:` functions | Duplicate work can be expensive and may depend on the current result set. |
+| Duplicate detection | `dupe:`, `distinct:`, `unique:` | Pass a semicolon-separated property list. For content identity, narrow first and use `dupe:size;sha256`; hashing can be slow, and new results require a refresh. |
+| Recent changes | `rc:`, `recentchange:` | Matches changes since Everything started; optional NTFS USN-journal loading can extend the history. |
 | Hashes and binary data | hash properties, first-byte functions | Narrow by indexed criteria before reading files. |
 | Images, audio, and video | dimensions, duration, bitrate, codec, camera/media properties | Availability depends on property handlers and indexing. |
 | Documents and executables | author/title/page-count, version/signature/PE properties | May require disk access or property indexing. |
@@ -46,4 +47,4 @@ Build the query from indexed terms first: path, name, extension, type, size, and
 
 Open the official catalog before using a function not named above, an alias, an exact/unknown comparison, property substitution, formulas, weighted search, column-header search, or a version-specific property. Verify the function's aliases, accepted value type, indexing requirement, and examples.
 
-Official source: [Search Functions](https://www.voidtools.com/forum/viewtopic.php?f=12&t=10176).
+Official sources: [Search Functions](https://www.voidtools.com/forum/viewtopic.php?f=12&t=10176), [Find Duplicates](https://www.voidtools.com/support/everything/find_duplicates), and [Recent Changes](https://www.voidtools.com/support/everything/recent_changes).

@@ -18,6 +18,7 @@ The skill was developed with guidance from [mattpocock/skills](https://github.co
 - AND, OR, NOT, grouping, quoting, wildcards, macros, and character entities
 - Search functions, modifiers, formulas, and preprocessor routing
 - JSON results, paging, sorting, and candidate verification
+- Conditional diagnostics for ES failures and missing, stale, omitted, or duplicated results
 - Headless bookmark and filter creation through Everything's supported CSV import commands
 - Guarded Everything 1.5 tab, column, and layout commands
 - Guidance for deciding when a direct Everything SDK3 integration is justified
@@ -111,6 +112,7 @@ skills/everything-search/
     ├── search-modifiers.md
     ├── search-preprocessor.md
     ├── search-syntax.md
+    ├── troubleshooting.md
     └── ui-commands.md
 ```
 

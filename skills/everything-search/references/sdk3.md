@@ -27,6 +27,7 @@ Use the downloaded SDK headers and examples as the build-time source of truth. M
 
 ## Boundaries
 
+- Treat the classic SDK and SDK3 as separate generations. The classic SDK uses DLL/Lib and `WM_COPYDATA` IPC APIs; this branch uses the SDK3 headers, state objects, and lifetime rules.
 - SDK3 searches the Everything index; it does not provide general control of existing GUI tabs and columns.
 - GUI actions belong to Everything.exe search commands; read [ui-commands.md](ui-commands.md).
 - Search-language details belong to the syntax, functions, modifiers, and preprocessor references rather than being duplicated here.
@@ -35,4 +36,4 @@ Use the downloaded SDK headers and examples as the build-time source of truth. M
 
 Open the official SDK page before using an untested state family, callback, property ID, memory-lifetime rule, or function signature. Confirm against the downloaded SDK headers before compiling.
 
-Official source: [Everything 1.5 SDK](https://www.voidtools.com/forum/viewtopic.php?t=15853).
+Official sources: [Everything 1.5 SDK3](https://www.voidtools.com/forum/viewtopic.php?t=15853) and [classic Everything SDK](https://www.voidtools.com/support/everything/sdk).
