@@ -1,6 +1,6 @@
 # Everything Search Agent Skill
 
-[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-111827?style=for-the-badge&logo=npm&logoColor=white)](https://skills.sh/today20092/everything-search-skill/everything-search) [![Windows](https://img.shields.io/badge/platform-Windows-0078D4?style=for-the-badge&logo=windows11&logoColor=white)](https://www.microsoft.com/windows/) [![Everything 1.5](https://img.shields.io/badge/Everything-1.5-ff5a1f?style=for-the-badge)](https://www.voidtools.com/forum/viewtopic.php?f=12&t=9787) [![Agent Skills compatible](https://img.shields.io/badge/Agent%20Skills-compatible-412991?style=for-the-badge&logo=openai&logoColor=white)](https://www.skills.sh/docs) [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/Today20092/everything-search-skill?style=for-the-badge&logo=github&label=Stars)](https://github.com/Today20092/everything-search-skill/stargazers)
+[![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-111827?style=for-the-badge&logo=npm&logoColor=white)](https://www.skills.sh/today20092/everything-search-skill/everything-search) [![Windows](https://img.shields.io/badge/platform-Windows-0078D4?style=for-the-badge&logo=windows11&logoColor=white)](https://www.microsoft.com/windows/) [![Everything 1.5](https://img.shields.io/badge/Everything-1.5-ff5a1f?style=for-the-badge)](https://www.voidtools.com/forum/viewtopic.php?f=12&t=9787) [![Agent Skills compatible](https://img.shields.io/badge/Agent%20Skills-compatible-412991?style=for-the-badge&logo=openai&logoColor=white)](https://www.skills.sh/docs) [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/Today20092/everything-search-skill?style=for-the-badge&logo=github&label=Stars)](https://github.com/Today20092/everything-search-skill/stargazers)
 
 Give Codex, Claude Code, and other Agent Skills-compatible assistants fast access to the local Windows filesystem through [Everything](https://www.voidtools.com/) and its official [ES command-line interface](https://github.com/voidtools/ES).
 
@@ -29,6 +29,8 @@ Copy and paste this command to install the skill globally for Codex:
 ```powershell
 npx skills add Today20092/everything-search-skill --skill everything-search -g -a codex
 ```
+
+[View the skill on skills.sh](https://www.skills.sh/today20092/everything-search-skill/everything-search)
 
 To inspect the skills available in the repository before installing:
 
