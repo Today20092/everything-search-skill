@@ -9,6 +9,20 @@ Search commands act on an Everything GUI window. They are not index queries and 
 - Treat UI automation as an explicit user-directed branch. Locate the installed Everything executable and verify the exact command before execution.
 - The SDK search-text API does not turn search commands into UI actions.
 
+## Minimum builds
+
+Compare the running executable's full four-part file version with the command being used:
+
+| Capability | Minimum Everything build |
+|---|---|
+| `-columns`, `-add-columns`, `-remove-columns` | 1.5.0.1347a |
+| `-new-tab` | 1.5.0.1357a |
+| `-search-command` and `/new-tab` | 1.5.0.1362a |
+| `/columns` and `/add-columns` | 1.5.0.1367a |
+| JSON column objects | 1.5.0.1374a |
+
+Verify commands not listed here against the official sources immediately before execution.
+
 ## Safe UI examples
 
 - `/command "File | New Tab"` creates a new tab through the named menu command.
@@ -30,7 +44,7 @@ The equivalent search-command sequence is:
 & $everythingExe -search-command '/new-tab' -search-command '/columns name;path;size;date-modified'
 ```
 
-Everything processes repeated `-search-command` options in order. Verify the active Everything instance and executable path before running either form.
+Everything processes repeated `-search-command` options in order. Verify the active Everything instance, executable path, and required build before running either form.
 
 ## Safety classes
 
@@ -44,6 +58,6 @@ Commands using silent, overwrite, permanent-delete, database-delete, or exit-wit
 
 ## Online fallback
 
-Open the official page immediately before executing a command not listed above. Verify syntax, supported switches, whether it requires enabling all search commands, and whether it changes files, configuration, the database, or application state.
+Open the official page immediately before executing a command not listed above. Verify syntax, minimum build, supported switches, whether it requires enabling all search commands, and whether it changes files, configuration, the database, or application state.
 
 Official sources: [Search Commands](https://www.voidtools.com/forum/viewtopic.php?f=12&t=10091) and [Everything.exe command-line options](https://www.voidtools.com/forum/viewtopic.php?f=12&t=10479).

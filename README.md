@@ -110,6 +110,8 @@ skills/everything-search/
     └── ui-commands.md
 ```
 
+Manual routing and safety evaluations live in [`skills/everything-search/evals/cases.md`](skills/everything-search/evals/cases.md).
+
 ## Related work
 
 [CodingRookie98/everything-search](https://github.com/CodingRookie98/everything-search) is another public Agent Skill for Everything. It provides a Node.js wrapper around ES. This repository takes a different approach: direct ES invocation, progressive Everything 1.5 language references, explicit GUI/SDK routing, and no runtime wrapper.
