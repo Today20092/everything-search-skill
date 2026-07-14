@@ -1,5 +1,7 @@
 # Everything Search Agent Skill
 
+[![skills.sh](https://skills.sh/b/today20092/everything-search-skill)](https://skills.sh/today20092/everything-search-skill/everything-search)
+
 Give Codex, Claude Code, and other Agent Skills-compatible assistants fast access to the local Windows filesystem through [Everything](https://www.voidtools.com/) and its official [ES command-line interface](https://github.com/voidtools/ES).
 
 ## Why this exists
