@@ -1,6 +1,6 @@
 # Everything Search Agent Skill
 
-[![skills.sh](https://skills.sh/b/today20092/everything-search-skill)](https://skills.sh/today20092/everything-search-skill/everything-search)
+[![skills.sh](https://skills.sh/b/today20092/everything-search-skill)](https://skills.sh/today20092/everything-search-skill/everything-search) [![Windows](https://img.shields.io/badge/platform-Windows-0078D4?style=flat-square&logo=windows11&logoColor=white)](https://www.microsoft.com/windows/) [![Everything 1.5](https://img.shields.io/badge/Everything-1.5-ff6b00?style=flat-square)](https://www.voidtools.com/forum/viewtopic.php?f=12&t=9787) [![Agent Skills compatible](https://img.shields.io/badge/Agent%20Skills-compatible-6f42c1?style=flat-square)](https://www.skills.sh/docs) [![MIT License](https://img.shields.io/github/license/Today20092/everything-search-skill?style=flat-square)](LICENSE) [![Last commit](https://img.shields.io/github/last-commit/Today20092/everything-search-skill?style=flat-square)](https://github.com/Today20092/everything-search-skill/commits/main)
 
 Give Codex, Claude Code, and other Agent Skills-compatible assistants fast access to the local Windows filesystem through [Everything](https://www.voidtools.com/) and its official [ES command-line interface](https://github.com/voidtools/ES).
 
@@ -9,6 +9,8 @@ Give Codex, Claude Code, and other Agent Skills-compatible assistants fast acces
 AI coding agents usually locate files by walking directories. That works inside one repository, but it is slow and incomplete when the request spans an entire Windows computer. Everything already maintains a near-instant local index; this skill teaches an agent to query that index safely instead of scanning every drive.
 
 This skill deliberately uses the official `es.exe` client directly. It adds no Node or Python wrapper, bundles no third-party executable, and keeps ordinary read-only search separate from Everything GUI commands that can change application or filesystem state.
+
+The skill was developed with guidance from [mattpocock/skills](https://github.com/mattpocock/skills), particularly its research, implementation, and skill-writing workflows.
 
 ## What it covers
 
@@ -19,6 +21,22 @@ This skill deliberately uses the official `es.exe` client directly. It adds no N
 - Guarded Everything 1.5 tab, column, and layout commands
 - Guidance for deciding when a direct Everything SDK3 integration is justified
 - Local progressive references with official voidtools documentation as the version-sensitive fallback
+
+## Install
+
+Copy and paste this command to install the skill globally for Codex:
+
+```powershell
+npx skills add Today20092/everything-search-skill --skill everything-search -g -a codex
+```
+
+To inspect the skills available in the repository before installing:
+
+```powershell
+npx skills add Today20092/everything-search-skill --list
+```
+
+The Skills CLI also supports Claude Code, Cursor, GitHub Copilot, and other Agent Skills-compatible clients.
 
 ## Requirements
 
@@ -54,22 +72,6 @@ From a cloned repository, run it manually with:
 ```
 
 Use `-WhatIf` to preview and `-InstallDirectory` to choose another destination.
-
-## Install
-
-Install globally for Codex:
-
-```powershell
-npx skills add Today20092/everything-search-skill --skill everything-search -g -a codex
-```
-
-List the skill before installing:
-
-```powershell
-npx skills add Today20092/everything-search-skill --list
-```
-
-The Skills CLI also supports Claude Code, Cursor, GitHub Copilot, and other Agent Skills-compatible clients.
 
 ## Example requests
 
