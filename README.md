@@ -18,6 +18,7 @@ The skill was developed with guidance from [mattpocock/skills](https://github.co
 - AND, OR, NOT, grouping, quoting, wildcards, macros, and character entities
 - Search functions, modifiers, formulas, and preprocessor routing
 - JSON results, paging, sorting, and candidate verification
+- Headless bookmark and filter creation through Everything's supported CSV import commands
 - Guarded Everything 1.5 tab, column, and layout commands
 - Guidance for deciding when a direct Everything SDK3 integration is justified
 - Local progressive references with official voidtools documentation as the version-sensitive fallback
@@ -82,6 +83,8 @@ Use `-WhatIf` to preview and `-InstallDirectory` to choose another destination.
 - “Locate folders named node_modules outside archived projects.”
 - “Find case-sensitive README.md files.”
 - “Create a new Everything tab with Name, Path, Size, and Date Modified columns.”
+- “Add a workdocs: filter for PDFs and Word documents under my work folder.”
+- “Create a Projects bookmark folder with saved searches for each active project.”
 - “Would this request benefit from the Everything SDK instead of ES?”
 
 ## Design and safety
@@ -90,7 +93,7 @@ Ordinary searches use local IPC between `es.exe` and the running Everything appl
 
 Filenames, paths, and requested metadata returned by ES enter the agent conversation. Depending on the chosen agent and provider, that information may be transmitted off the computer under the provider's privacy terms. Review the query and provider policy before searching sensitive locations.
 
-Content searches and unindexed properties can touch disk, so the skill narrows candidates with indexed terms first. GUI commands and file-changing commands are routed separately and require explicit user intent.
+Content searches and unindexed properties can touch disk, so the skill narrows candidates with indexed terms first. GUI commands, persistent bookmark and filter imports, and file-changing commands are routed separately and require explicit user intent.
 
 The repository does not distribute Everything, ES, or the SDK. Install those components from voidtools.
 
@@ -102,6 +105,7 @@ skills/everything-search/
 ├── agents/openai.yaml
 ├── scripts/install-es.ps1
 └── references/
+    ├── bookmarks-filters.md
     ├── sdk3.md
     ├── search-functions.md
     ├── search-modifiers.md

@@ -1,6 +1,6 @@
 ---
 name: everything-search
-description: Route Everything work: search Windows files and folders, compose Everything 1.5 queries, control tabs/columns/layout, or assess and build direct SDK3 integrations.
+description: "Route Everything work: search Windows files and folders, compose Everything 1.5 queries, manage bookmarks and filters, control tabs/columns/layout, or assess and build direct SDK3 integrations."
 ---
 
 # Everything Search
@@ -13,6 +13,7 @@ Classify the request before checking local prerequisites:
 
 - **Compose or explain a query:** follow **Compose a query** and return the query. Local Windows, Everything, and ES installations are not required.
 - **Search the local index:** follow **Search the local index**.
+- **Manage bookmarks or filters:** follow **Manage bookmarks and filters**.
 - **Change the Everything GUI:** follow **Control the Everything GUI**. ES cannot execute GUI search commands.
 - **Evaluate or build an SDK3 integration:** follow **Evaluate or build SDK3**.
 
@@ -45,9 +46,21 @@ The query-composition branch is complete when the query covers every requested c
     ```
 
 7. Parse the JSON and report the most relevant full paths. Treat results as candidates: confirm a path still exists before reading, editing, moving, or deleting it.
-8. Refine broad searches before increasing the 50-result cap. Paginate only when needed with `-o <offset>`.
+8. Refine broad searches before increasing the 50-result cap. For human-facing document or media searches, exclude irrelevant tooling directories such as `.git` or `node_modules` when they dominate the results. Paginate only when needed with `-viewport-offset <offset> -viewport-count <count>`; omit `-n` on paged requests.
 
 The search is complete when the returned candidates answer the request, or a refined query returns no match.
+
+## Manage bookmarks and filters
+
+1. Read [bookmarks-filters.md](references/bookmarks-filters.md).
+2. Choose a filter for a reusable search constraint, or a bookmark when the user wants a saved search plus filter, sort, columns, view, or folder organization.
+3. Resolve the running Everything executable and require build `1.5.0.1384` or later for the documented headless import-and-save workflow.
+4. Inspect the current instance's bookmark or filter CSV only to copy its exact header and detect existing names, macros, and keyboard shortcuts. Reject ambiguous collisions before changing state.
+5. Preview the entries to add. After the user has supplied or approved their names and searches, create a UTF-8 import CSV that contains only those entries and uses the current file's exact columns.
+6. Back up the current native CSV. Load the import with `Everything.exe -search-command` and `/load-bookmarks <filename>` or `/load-filters <filename>`, then run `/save-all`. Do not edit the native CSV while Everything is running.
+7. Re-read the native CSV and verify every approved entry and field. Keep the backup until verification succeeds.
+
+The branch is complete when every approved entry is present exactly once with the intended search and metadata, or no settings were changed and the collision or unsupported build is reported.
 
 ## Control the Everything GUI
 
@@ -80,7 +93,7 @@ Result paths and requested metadata enter the agent conversation. Avoid searchin
 - Files only: add `/a-d`
 - Folders only: add `/ad`
 - Sort newest first: `-sort-date-modified-descending`
-- Return a later page: `-o 50 -n 50`
+- Return a later page: `-viewport-offset 50 -viewport-count 50`
 - Request more columns: `-extension`, `-attributes`, `-date-created`, or `-date-accessed`
 
 Keep `-json` for machine-readable output. Keep every complete search term in the argument array so PowerShell does not interpret Everything operators such as `|`, `<`, or `>`. Preserve phrases, grouped expressions, and complete preprocessor expressions as single array items.
