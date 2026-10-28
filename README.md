@@ -1,3 +1,5 @@
+> **Moved:** This skill is now maintained in [Today20092/skills](https://github.com/Today20092/skills). Install and update it from that repository. This repository is retained for existing links and historical reference.
+
 # Everything Search Agent Skill
 
 [![Install with skills.sh](https://img.shields.io/badge/skills.sh-install-111827?style=for-the-badge&logo=npm&logoColor=white)](https://www.skills.sh/today20092/everything-search-skill/everything-search) [![Windows](https://img.shields.io/badge/platform-Windows-0078D4?style=for-the-badge&logo=windows11&logoColor=white)](https://www.microsoft.com/windows/) [![Everything 1.5](https://img.shields.io/badge/Everything-1.5-ff5a1f?style=for-the-badge)](https://www.voidtools.com/forum/viewtopic.php?f=12&t=9787) [![Agent Skills compatible](https://img.shields.io/badge/Agent%20Skills-compatible-412991?style=for-the-badge&logo=openai&logoColor=white)](https://www.skills.sh/docs) [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE) [![GitHub stars](https://img.shields.io/github/stars/Today20092/everything-search-skill?style=for-the-badge&logo=github&label=Stars)](https://github.com/Today20092/everything-search-skill/stargazers)
@@ -29,7 +31,7 @@ The skill was developed with guidance from [mattpocock/skills](https://github.co
 Copy and paste this command to install the skill globally for Codex:
 
 ```powershell
-npx skills add Today20092/everything-search-skill --skill everything-search -g -a codex
+npx skills add Today20092/skills --skill everything-search -g -a codex
 ```
 
 [View the skill on skills.sh](https://www.skills.sh/today20092/everything-search-skill/everything-search)
@@ -37,7 +39,7 @@ npx skills add Today20092/everything-search-skill --skill everything-search -g -
 To inspect the skills available in the repository before installing:
 
 ```powershell
-npx skills add Today20092/everything-search-skill --list
+npx skills add Today20092/skills --list
 ```
 
 The Skills CLI also supports Claude Code, Cursor, GitHub Copilot, and other Agent Skills-compatible clients.
